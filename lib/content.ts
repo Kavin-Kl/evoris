@@ -11,8 +11,8 @@ export const brand = {
 
 // TODO: replace with real contact details before launch.
 export const contact = {
-  email: "hello@evoris.in",
-  phone: "+91 98765 43210",
+  email: "evoris.org@gmail.com",
+  phone: "+91 91500 11035",
   address: "Chennai, Tamil Nadu, India",
   hours: "Mon – Sat · 9:00 AM – 7:00 PM",
 };
