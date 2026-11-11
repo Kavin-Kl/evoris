@@ -23,7 +23,7 @@ export default function Journey() {
   return (
     <section id="journey" ref={ref} className="relative" style={{ height: `${n * 80 + 20}vh` }}>
       <motion.div
-        className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-16"
+        className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-16 md:pt-20"
         initial={false}
         animate={{ backgroundColor: pal.bg, color: pal.fg }}
         transition={{ duration: 0.8, ease }}

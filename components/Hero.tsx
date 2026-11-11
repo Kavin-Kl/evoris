@@ -19,7 +19,7 @@ export default function Hero() {
   const headX = useTransform(scrollYProgress, [0, 1], ["0%", "-6%"]);
 
   return (
-    <section id="top" ref={ref} className="relative overflow-hidden pt-16">
+    <section id="top" ref={ref} className="relative overflow-hidden pt-16 md:pt-20">
       <Pattern kind="dots" size={22} className="text-ink/[0.13] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
       <Container className="relative">
         <motion.div

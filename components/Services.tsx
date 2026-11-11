@@ -85,7 +85,7 @@ function Pinned() {
 
   return (
     <section id="services" ref={ref} className="relative bg-bg" style={{ height: `calc(100vh + ${dist}px)` }}>
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-16">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-16 md:pt-20">
         <motion.div
           ref={track}
           style={{ x, skewX }}

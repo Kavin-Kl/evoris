@@ -34,8 +34,8 @@ export default function Nav() {
           scrolled || open ? "border-b border-line bg-bg/90 backdrop-blur-md" : "border-b border-transparent"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between gap-6 px-5 md:px-10">
-          <a href="#top" aria-label="Evoris home" className="display text-[2.4rem] tracking-[-0.05em] text-maroon md:text-[2.8rem]">
+        <div className="mx-auto flex h-16 max-w-[1360px] items-center md:h-20 justify-between gap-6 px-5 md:px-10">
+          <a href="#top" aria-label="Evoris home" className="display text-[2.9rem] tracking-[-0.05em] text-maroon md:text-[3.8rem]">
             evoris<span className="text-turmeric">.</span>
           </a>
 
