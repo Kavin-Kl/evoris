@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { Phone } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -35,8 +36,13 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-[1360px] items-center md:h-20 justify-between gap-6 px-5 md:px-10">
-          <a href="#top" aria-label="Evoris home" className="display text-[2.9rem] tracking-[-0.05em] text-maroon md:text-[3.8rem]">
-            evoris<span className="text-turmeric">.</span>
+          <a href="#top" aria-label="Evoris home" className="group flex items-center gap-2 md:gap-3">
+            <span className="relative h-11 w-11 shrink-0 transition-transform duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:rotate-[-12deg] md:h-14 md:w-14">
+              <Image src="/emblem.png" alt="" fill sizes="56px" priority />
+            </span>
+            <span className="display text-[2.9rem] tracking-[-0.05em] text-maroon md:text-[3.8rem]">
+              evoris<span className="text-turmeric">.</span>
+            </span>
           </a>
 
           <nav className="hidden items-center gap-7 lg:flex">
