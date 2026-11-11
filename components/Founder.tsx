@@ -1,42 +1,35 @@
 "use client";
 
 import { founder } from "@/lib/content";
-import { Container, Eyebrow, Reveal } from "./ui";
+import { Container, Reveal } from "./ui";
 
 export default function Founder() {
   return (
-    <section id="founder" className="py-20 md:py-28">
-      <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <section id="founder" className="py-24 md:py-36">
+      <Container className="max-w-[860px]">
         <Reveal>
-          <Eyebrow>A note from our founder</Eyebrow>
-          <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-ink md:text-[2.75rem]">
-            Every life is a journey. No one should walk it alone.
-          </h2>
-          <div className="mt-8 flex items-center gap-4">
-            {/* Swap for a photo of the founder when available. */}
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-wine font-display text-lg text-white">
+          <p className="text-center text-sm text-faint">Why Evoris exists</p>
+          <blockquote className="mt-6 text-center font-serif text-[1.85rem] leading-[1.3] tracking-[-0.01em] text-ink md:text-[2.6rem]">
+            “Whatever the moment, you will never have to face it alone. We will treat your life’s moments as if they
+            were our own: with care in the tender ones, joy in the celebrations, and honesty always.”
+          </blockquote>
+          <div className="mt-10 flex items-center justify-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine font-serif text-sm text-white">
               NJG
             </span>
-            <div>
-              <p className="font-medium text-ink">{founder.name}</p>
-              <p className="text-sm text-muted">{founder.title}</p>
+            <div className="text-left">
+              <p className="text-[0.95rem] text-ink">{founder.name}</p>
+              <p className="text-sm text-faint">Founder, Evoris</p>
             </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <div className="space-y-5 text-lg leading-relaxed text-muted">
+        <Reveal delay={0.05}>
+          <div className="mx-auto mt-16 grid max-w-3xl gap-6 border-t border-line pt-10 text-[1.05rem] leading-relaxed text-muted md:grid-cols-2">
             {founder.intro.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
-          <figure className="mt-10 border-l-2 border-wine pl-6">
-            <p className="text-sm font-medium uppercase tracking-[0.14em] text-plum">The founder’s promise</p>
-            <blockquote className="mt-3 font-display text-xl leading-relaxed text-ink md:text-2xl">
-              “{founder.promise}”
-            </blockquote>
-            <figcaption className="mt-4 text-[0.95rem] text-muted">— {founder.name}</figcaption>
-          </figure>
         </Reveal>
       </Container>
     </section>

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
+import { Newsreader, Outfit } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   axes: ["opsz"],
+  style: ["normal", "italic"],
 });
 
 const outfit = Outfit({
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${outfit.variable} antialiased`}>
+    <html lang="en" className={`${newsreader.variable} ${outfit.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );

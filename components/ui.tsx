@@ -22,10 +22,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease, delay }}
+      transition={{ duration: 0.7, ease, delay }}
     >
       {children}
     </motion.div>
@@ -33,49 +33,60 @@ export function Reveal({
 }
 
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-6xl px-5 md:px-8 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-[1120px] px-5 md:px-8 ${className}`}>{children}</div>;
 }
 
-export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
-  return (
-    <p className={`text-sm font-medium uppercase tracking-[0.14em] ${light ? "text-blush" : "text-plum"}`}>
-      {children}
-    </p>
-  );
-}
-
-export function SectionHeader({
-  eyebrow,
-  title,
-  lead,
-  center = false,
+/** Two-tone serif heading: a quiet grey lead-in followed by the statement. */
+export function Heading({
+  kicker,
+  children,
+  className = "",
   light = false,
 }: {
-  eyebrow: string;
-  title: string;
-  lead?: string;
-  center?: boolean;
+  kicker?: string;
+  children: ReactNode;
+  className?: string;
   light?: boolean;
 }) {
   return (
-    <Reveal className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <Eyebrow light={light}>{eyebrow}</Eyebrow>
-      <h2
-        className={`mt-3 font-display text-3xl leading-tight tracking-tight md:text-[2.75rem] ${
-          light ? "text-white" : "text-ink"
-        }`}
-      >
-        {title}
-      </h2>
-      {lead && (
-        <p className={`mt-4 text-lg leading-relaxed ${light ? "text-white/70" : "text-muted"}`}>{lead}</p>
-      )}
-    </Reveal>
+    <h2
+      className={`font-serif text-[2.4rem] leading-[1.05] tracking-[-0.02em] md:text-[3.5rem] ${
+        light ? "text-[#f4efe6]" : "text-ink"
+      } ${className}`}
+    >
+      {kicker && <span className={`block ${light ? "text-white/40" : "text-faint"}`}>{kicker}</span>}
+      {children}
+    </h2>
   );
 }
 
-export const btnPrimary =
-  "inline-flex items-center justify-center gap-2 rounded-lg bg-wine px-5 py-3 text-[0.95rem] font-medium text-white transition-colors hover:bg-wine-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine";
+export const pillDark =
+  "inline-flex items-center justify-center gap-2 rounded-full bg-night px-5 py-2.5 text-[0.95rem] text-[#f7f3ec] transition hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
 
-export const btnSecondary =
-  "inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-5 py-3 text-[0.95rem] font-medium text-ink transition-colors hover:border-ink/25 hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine";
+export const pillLight =
+  "inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-5 py-2.5 text-[0.95rem] text-ink transition hover:border-ink/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
+
+/** A soft macOS-style window frame for UI illustrations. */
+export function Window({
+  title,
+  children,
+  className = "",
+}: {
+  title?: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`overflow-hidden rounded-2xl border border-line bg-card shadow-[0_30px_80px_-30px_rgba(60,40,20,0.25),0_2px_6px_-2px_rgba(60,40,20,0.06)] ${className}`}
+    >
+      <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#e8695f]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ecbf4f]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#62c554]" />
+        {title && <span className="ml-3 text-xs text-faint">{title}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}

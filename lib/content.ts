@@ -1,15 +1,11 @@
 // All site copy lives here so it can be edited without touching components.
 
-export const img = (id: string, w = 1600) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
-
 export const brand = {
   name: "Evoris",
   tagline: "Life, simplified.",
   descriptor: "Your Life Journey Service Partner",
 };
 
-// TODO: replace with real contact details before launch.
 export const contact = {
   email: "evoris.org@gmail.com",
   phone: "+91 91500 11035",
@@ -95,8 +91,6 @@ export type Sphere = {
   id: string;
   title: string;
   blurb: string;
-  image: string;
-  alt: string;
   services: Service[];
 };
 
@@ -106,8 +100,6 @@ export const spheres: Sphere[] = [
     title: "Moments of Celebrations",
     blurb:
       "Life’s happiest milestones deserve to be lived, not managed. From the first candle to the grandest vow, we design and deliver celebrations that feel entirely yours.",
-    image: "1530103862676-de8c9debad1d",
-    alt: "Colourful balloons at a celebration",
     services: [
       { name: "Birthday" },
       { name: "Wedding" },
@@ -125,8 +117,6 @@ export const spheres: Sphere[] = [
     title: "Heart of Care",
     blurb:
       "When the people you love need looking after, we step in with warmth and reliability. Compassionate, professional care that brings peace of mind to the whole family.",
-    image: "1576765608535-5f04d1e3f289",
-    alt: "A caregiver gently attending to an elderly woman",
     services: [
       { name: "Elderly & Seniors Supportive Care" },
       { name: "Hospitalization Care" },
@@ -139,8 +129,6 @@ export const spheres: Sphere[] = [
     title: "Towards Abundance, Prosperity & Wealth",
     blurb:
       "Financial clarity is the foundation of a confident life. We help you plan, grow and protect your wealth with guidance that is honest, informed and personal.",
-    image: "1554224155-6726b3ff858f",
-    alt: "Financial documents and a calculator on a desk",
     services: [
       { name: "Financial Planning Consultation" },
       { name: "Investment & Wealth Management" },
@@ -153,8 +141,6 @@ export const spheres: Sphere[] = [
     title: "Support @ Life Cross Road",
     blurb:
       "Some turns in life call for a steady hand and a clear view ahead. Whether it’s a career change, a legal matter or a big decision, we help you choose the right road.",
-    image: "1464207687429-7505649dae38",
-    alt: "People sitting on a hilltop overlooking a valley at sunrise",
     services: [
       { name: "Job Loss / Career Challenge Guidance and Consulting" },
       { name: "Career Planning" },
@@ -168,8 +154,6 @@ export const spheres: Sphere[] = [
     title: "Assuring Safety & Protection",
     blurb:
       "Feeling safe is the quiet comfort every family deserves. We bring together smart technology and dependable people to protect your home and your loved ones.",
-    image: "1558002038-1055907df827",
-    alt: "Smart lock on a door controlled by a phone",
     services: [
       { name: "Home Secure & Safety Solutions Management" },
       { name: "Child Safety & Tracking Solutions" },
@@ -181,8 +165,6 @@ export const spheres: Sphere[] = [
     title: "Securing Asset & Property Management",
     blurb:
       "Your land and property carry your hard work and your legacy. We look after them with care and transparency — wherever you are in the world.",
-    image: "1500382017468-9049fed747ef",
-    alt: "Golden farmland at sunset",
     services: [
       { name: "Farmland / Property Management" },
       { name: "Rental Non-Commercial & Commercial Property Management" },
@@ -193,8 +175,6 @@ export const spheres: Sphere[] = [
     title: "Shouldering Moments of Pain",
     blurb:
       "In life’s most difficult hours, no one should have to carry the weight alone. We stand beside you with dignity, sensitivity and practical support.",
-    image: "1544027993-37dbfe43562a",
-    alt: "Two hands reaching towards each other",
     services: [{ name: "Remembrance" }, { name: "There for You!!!" }],
   },
   {
@@ -202,8 +182,6 @@ export const spheres: Sphere[] = [
     title: "Towards Shared Support",
     blurb:
       "Sometimes the most powerful help is someone who truly listens. Our counsellors, coaches and mentors help individuals and families find clarity, balance and strength.",
-    image: "1573497019940-1c28c88b4f3e",
-    alt: "A smiling counsellor",
     services: [
       {
         name: "Counselling Support",
@@ -222,8 +200,6 @@ export const spheres: Sphere[] = [
     title: "Capture Life Moments, Family Roots & History",
     blurb:
       "Every family has a story worth keeping. We capture your moments, trace your roots and preserve your history so it can be treasured for generations.",
-    image: "1609220136736-443140cffec6",
-    alt: "A father smiling with his young children",
     services: [
       { name: "Audio / Video / Photo Shoots and Capture" },
       {
@@ -244,8 +220,6 @@ export const spheres: Sphere[] = [
     title: "Green@Home",
     blurb:
       "A greener home is a healthier, happier home. We help you grow, nurture and reconnect with nature — from your balcony garden to your family farm.",
-    image: "1416879595882-3373a0480b5b",
-    alt: "A garden trowel in fresh soil",
     services: [
       { name: "Green Home Solutions" },
       { name: "Home Garden Management & Maintenance" },
@@ -259,8 +233,6 @@ export const spheres: Sphere[] = [
     title: "Vacation, Leisure & Happy Moments Management",
     blurb:
       "Time away together is where some of life’s best memories are made. We plan every detail so your only job is to relax and enjoy the journey.",
-    image: "1507525428034-b723cf961d3e",
-    alt: "A calm tropical beach at sunrise",
     services: [
       { name: "Vacation & Holiday Planning" },
       { name: "Destination Family Vacation Support" },

@@ -1,4 +1,3 @@
-import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Founder from "@/components/Founder";
@@ -15,7 +14,6 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <About />
         <Services />
         <Process />
         <Membership />

@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowRight, CircleCheck, Clock, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { contact, spheres } from "@/lib/content";
-import { btnPrimary, Container, Reveal, SectionHeader } from "./ui";
+import { Container, Heading, pillDark, Reveal } from "./ui";
 
 const field =
-  "w-full rounded-lg border border-line bg-white px-4 py-3 text-ink outline-none transition placeholder:text-muted/60 focus:border-wine focus:ring-3 focus:ring-wine/10";
-const label = "mb-1.5 block text-sm font-medium text-ink";
+  "w-full rounded-xl border border-line bg-bg px-4 py-3 text-ink outline-none transition placeholder:text-faint focus:border-ink/30 focus:bg-card";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -22,115 +21,86 @@ export default function Contact() {
   };
 
   const details = [
-    { icon: Phone, k: "Phone", v: contact.phone, href: `tel:${contact.phone.replace(/\s/g, "")}` },
-    { icon: Mail, k: "Email", v: contact.email, href: `mailto:${contact.email}` },
-    { icon: MapPin, k: "Location", v: contact.address },
-    { icon: Clock, k: "Hours", v: contact.hours },
+    { k: "Call", v: contact.phone, href: `tel:${contact.phone.replace(/\s/g, "")}` },
+    { k: "Email", v: contact.email, href: `mailto:${contact.email}` },
+    { k: "Visit", v: contact.address },
+    { k: "Hours", v: contact.hours },
   ];
 
   return (
-    <section id="contact" className="bg-surface py-20 md:py-28">
-      <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <div>
-          <SectionHeader
-            eyebrow="Contact"
-            title="Let’s talk about what you need."
-            lead="Tell us about the moment you’re planning for, or the one you need help with. A Life Journey Manager will get back to you within one working day."
-          />
-          <Reveal delay={0.08}>
-            <dl className="mt-10 space-y-5">
-              {details.map(({ icon: Icon, k, v, href }) => (
-                <div key={k} className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-wine">
-                    <Icon size={18} />
-                  </span>
-                  <div>
-                    <dt className="text-sm text-muted">{k}</dt>
-                    <dd className="font-medium text-ink">
-                      {href ? (
-                        <a href={href} className="hover:text-wine">
-                          {v}
-                        </a>
-                      ) : (
-                        v
-                      )}
-                    </dd>
-                  </div>
+    <section id="contact" className="pb-24 md:pb-36">
+      <Container>
+        <div className="grid gap-12 rounded-3xl border border-line bg-card p-6 md:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal>
+            <Heading kicker="Get in touch">Let’s talk about what’s ahead.</Heading>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
+              Tell us about the moment you’re planning for, or the one you need help with. We reply within one working
+              day.
+            </p>
+            <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6">
+              {details.map(({ k, v, href }) => (
+                <div key={k}>
+                  <dt className="text-sm text-faint">{k}</dt>
+                  <dd className="mt-1 text-[0.95rem] text-ink">
+                    {href ? (
+                      <a href={href} className="underline decoration-line underline-offset-4 hover:decoration-ink">
+                        {v}
+                      </a>
+                    ) : (
+                      v
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
           </Reveal>
-        </div>
 
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-line bg-white p-6 shadow-sm shadow-ink/[0.03] md:p-8">
+          <Reveal delay={0.05}>
             {sent ? (
-              <div className="flex min-h-[460px] flex-col items-center justify-center text-center">
-                <CircleCheck size={44} className="text-wine" strokeWidth={1.5} />
-                <p className="mt-5 text-xl font-medium text-ink">Thank you</p>
+              <div className="flex h-full min-h-[420px] flex-col items-center justify-center rounded-2xl bg-bg p-8 text-center">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e7efe2] text-[#4c6a43]">
+                  <Check size={20} />
+                </span>
+                <p className="mt-5 font-serif text-2xl text-ink">Thank you.</p>
                 <p className="mt-2 max-w-xs text-muted">
-                  Your mail app should have opened with your enquiry. We’ll be in touch soon.
+                  Your mail app should have opened with your message. We’ll be in touch soon.
                 </p>
-                <button onClick={() => setSent(false)} className="mt-6 text-sm font-medium text-wine hover:underline">
-                  Send another enquiry
+                <button onClick={() => setSent(false)} className="mt-6 text-sm text-muted underline underline-offset-4 hover:text-ink">
+                  Send another
                 </button>
               </div>
             ) : (
-              <form onSubmit={submit} className="grid gap-5">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="name" className={label}>
-                      Full name
-                    </label>
-                    <input id="name" name="name" required autoComplete="name" className={field} />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className={label}>
-                      Phone
-                    </label>
-                    <input id="phone" name="phone" type="tel" autoComplete="tel" className={field} />
-                  </div>
+              <form onSubmit={submit} className="grid gap-3">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <input name="name" required autoComplete="name" placeholder="Your name" aria-label="Your name" className={field} />
+                  <input name="phone" type="tel" autoComplete="tel" placeholder="Phone" aria-label="Phone" className={field} />
                 </div>
-                <div>
-                  <label htmlFor="email" className={label}>
-                    Email
-                  </label>
-                  <input id="email" name="email" type="email" required autoComplete="email" className={field} />
-                </div>
-                <div>
-                  <label htmlFor="sphere" className={label}>
-                    I’m interested in
-                  </label>
-                  <select id="sphere" name="sphere" defaultValue="" required className={field}>
-                    <option value="" disabled>
-                      Select a service
-                    </option>
-                    {spheres.map((s) => (
-                      <option key={s.id}>{s.title}</option>
-                    ))}
-                    <option>Evoris Membership</option>
-                    <option>Partnering with Evoris</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className={label}>
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder="Tell us a little about what you need"
-                    className={`${field} resize-none`}
-                  />
-                </div>
-                <button type="submit" className={`${btnPrimary} w-full`}>
-                  Send enquiry <ArrowRight size={18} />
+                <input name="email" type="email" required autoComplete="email" placeholder="Email" aria-label="Email" className={field} />
+                <select name="sphere" defaultValue="" required aria-label="What can we help with?" className={`${field} invalid:text-faint`}>
+                  <option value="" disabled>
+                    What can we help with?
+                  </option>
+                  {spheres.map((s) => (
+                    <option key={s.id}>{s.title}</option>
+                  ))}
+                  <option>Evoris Membership</option>
+                  <option>Partnering with Evoris</option>
+                  <option>Something else</option>
+                </select>
+                <textarea
+                  name="message"
+                  rows={5}
+                  placeholder="Tell us a little about it"
+                  aria-label="Message"
+                  className={`${field} resize-none`}
+                />
+                <button type="submit" className={`${pillDark} mt-2 !py-3`}>
+                  Send message <ArrowRight size={16} />
                 </button>
               </form>
             )}
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </Container>
     </section>
   );
