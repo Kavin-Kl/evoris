@@ -35,7 +35,7 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between gap-6 px-5 md:px-10">
-          <a href="#top" aria-label="Evoris home" className="display text-[1.9rem] tracking-[-0.05em] text-maroon">
+          <a href="#top" aria-label="Evoris home" className="display text-[2.4rem] tracking-[-0.05em] text-maroon md:text-[2.8rem]">
             evoris<span className="text-turmeric">.</span>
           </a>
 
