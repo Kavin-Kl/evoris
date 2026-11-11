@@ -1,54 +1,82 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f7f3ec;
-  --bg-2: #efe9dd;
-  --card: #fdfbf7;
-  --line: #e5ddcf;
-  --ink: #1b1816;
-  --muted: #6f6861;
-  --faint: #a69e94;
-  --night: #161311;
-  --wine: #6e1039;
-  --plum: #98537a;
-  --blush: #f3c9dc;
-  --gold: #b9a35a;
-  --sage: #7d9474;
+  --bg: #faf7f2;
+  --bg-2: #f1ebe0;
+  --ink: #1a1310;
+  --muted: #6a5d55;
+  --faint: #9c8e83;
+  --line: #1a131026;
+  --turmeric: #eaa63a;
+  --turmeric-soft: #f5d79a;
+  --maroon: #5b0f2c;
+  --maroon-deep: #2a0613;
+  --kumkum: #c2361f;
+  --marigold: #f2862a;
+  --peacock: #0e6670;
+  --rose: #d9466f;
+  --leaf: #4c7a2e;
+  --indigo: #2c3a8f;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-2: var(--bg-2);
-  --color-card: var(--card);
-  --color-line: var(--line);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
-  --color-night: var(--night);
-  --color-wine: var(--wine);
-  --color-plum: var(--plum);
-  --color-blush: var(--blush);
-  --color-gold: var(--gold);
-  --color-sage: var(--sage);
-  --font-sans: var(--font-outfit);
-  --font-serif: var(--font-newsreader);
+  --color-line: var(--line);
+  --color-turmeric: var(--turmeric);
+  --color-turmeric-soft: var(--turmeric-soft);
+  --color-maroon: var(--maroon);
+  --color-maroon-deep: var(--maroon-deep);
+  --color-kumkum: var(--kumkum);
+  --color-marigold: var(--marigold);
+  --color-peacock: var(--peacock);
+  --color-rose: var(--rose);
+  --color-leaf: var(--leaf);
+  --color-indigo: var(--indigo);
+  --font-sans: var(--font-instrument-sans);
+  --font-display: var(--font-bricolage);
+  --font-mono: var(--font-plex-mono);
 }
 
 html {
   background: var(--bg);
-  scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 72px;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: var(--blush);
+  background: var(--turmeric);
   color: var(--ink);
+}
+
+/* Display type: Bricolage at its tightest, boldest optical size */
+.display {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-variation-settings: "opsz" 96, "wdth" 85;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 .no-scrollbar {
@@ -58,8 +86,14 @@ body {
   display: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* Fine paper grain over the whole page */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

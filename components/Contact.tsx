@@ -1,12 +1,14 @@
 "use client";
 
-import { ArrowRight, Check } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { contact, spheres } from "@/lib/content";
-import { Container, Heading, pillDark, Reveal } from "./ui";
+import { KolamDraw, Pattern } from "./Texture";
+import { Container, ease, Index, Lines } from "./ui";
 
-const field =
-  "w-full rounded-xl border border-line bg-bg px-4 py-3 text-ink outline-none transition placeholder:text-faint focus:border-ink/30 focus:bg-card";
+const box =
+  "w-full border border-ink/25 bg-bg/60 px-4 py-3.5 text-base text-ink outline-none transition-colors placeholder:text-ink/45 focus:border-ink focus:bg-bg";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -20,63 +22,68 @@ export default function Contact() {
     setSent(true);
   };
 
-  const details = [
-    { k: "Call", v: contact.phone, href: `tel:${contact.phone.replace(/\s/g, "")}` },
-    { k: "Email", v: contact.email, href: `mailto:${contact.email}` },
-    { k: "Visit", v: contact.address },
-    { k: "Hours", v: contact.hours },
-  ];
-
   return (
-    <section id="contact" className="pb-24 md:pb-36">
-      <Container>
-        <div className="grid gap-12 rounded-3xl border border-line bg-card p-6 md:p-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <Reveal>
-            <Heading kicker="Get in touch">Let’s talk about what’s ahead.</Heading>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
-              Tell us about the moment you’re planning for, or the one you need help with. We reply within one working
-              day.
-            </p>
-            <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6">
-              {details.map(({ k, v, href }) => (
-                <div key={k}>
-                  <dt className="text-sm text-faint">{k}</dt>
-                  <dd className="mt-1 text-[0.95rem] text-ink">
-                    {href ? (
-                      <a href={href} className="underline decoration-line underline-offset-4 hover:decoration-ink">
-                        {v}
-                      </a>
-                    ) : (
-                      v
-                    )}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
+    <section id="contact" className="relative overflow-hidden bg-turmeric py-24 text-ink md:py-36">
+      <Pattern kind="kolam" size={64} className="text-maroon/[0.13]" />
+      <KolamDraw className="pointer-events-none absolute -right-20 -top-10 w-[55vw] max-w-[620px] text-maroon/40" />
+      <Container className="relative">
+        <Index n="06">Contact</Index>
+        <Lines
+          className="display mt-6 text-[clamp(3.6rem,11vw,11rem)]"
+          lines={["Let’s plan", <span key="w" className="text-maroon">what’s next.</span>]}
+        />
 
-          <Reveal delay={0.05}>
-            {sent ? (
-              <div className="flex h-full min-h-[420px] flex-col items-center justify-center rounded-2xl bg-bg p-8 text-center">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e7efe2] text-[#4c6a43]">
-                  <Check size={20} />
-                </span>
-                <p className="mt-5 font-serif text-2xl text-ink">Thank you.</p>
-                <p className="mt-2 max-w-xs text-muted">
-                  Your mail app should have opened with your message. We’ll be in touch soon.
-                </p>
-                <button onClick={() => setSent(false)} className="mt-6 text-sm text-muted underline underline-offset-4 hover:text-ink">
-                  Send another
-                </button>
+        <div className="mt-14 grid gap-12 border-t border-ink/25 pt-10 md:mt-20 md:grid-cols-[1fr_1.3fr] md:gap-16">
+          <div className="space-y-8">
+            <p className="max-w-sm text-lg leading-snug">
+              Tell us about the moment you’re planning for, or the one you need help with. A Life Journey Manager calls
+              you back within one working day.
+            </p>
+            {[
+              { k: "Call", v: contact.phone, href: `tel:${contact.phone.replace(/\s/g, "")}` },
+              { k: "Email", v: contact.email, href: `mailto:${contact.email}` },
+              { k: "Visit", v: contact.address },
+              { k: "Hours", v: contact.hours },
+            ].map((c) => (
+              <div key={c.k} className="border-t border-ink/25 pt-3">
+                <p className="font-mono text-[0.72rem] uppercase">{c.k}</p>
+                {c.href ? (
+                  <a href={c.href} className="group mt-1 flex items-center gap-2 text-2xl font-medium hover:text-maroon">
+                    {c.v}
+                    <ArrowUpRight size={20} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </a>
+                ) : (
+                  <p className="mt-1 text-lg">{c.v}</p>
+                )}
               </div>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            {sent ? (
+              <motion.div
+                key="done"
+                className="flex min-h-[460px] flex-col justify-center bg-ink p-8 text-bg md:p-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease }}
+              >
+                <p className="display text-6xl">
+                  Thank you<span className="text-turmeric">.</span>
+                </p>
+                <p className="mt-4 max-w-sm text-bg/70">Your mail app should have opened with your message ready to send.</p>
+                <button onClick={() => setSent(false)} className="mt-8 self-start font-mono text-xs uppercase underline underline-offset-4">
+                  Write another
+                </button>
+              </motion.div>
             ) : (
-              <form onSubmit={submit} className="grid gap-3">
+              <motion.form key="form" onSubmit={submit} className="grid gap-3" exit={{ opacity: 0 }}>
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <input name="name" required autoComplete="name" placeholder="Your name" aria-label="Your name" className={field} />
-                  <input name="phone" type="tel" autoComplete="tel" placeholder="Phone" aria-label="Phone" className={field} />
+                  <input name="name" required autoComplete="name" placeholder="Your name" aria-label="Your name" className={box} />
+                  <input name="phone" type="tel" autoComplete="tel" placeholder="Phone" aria-label="Phone" className={box} />
                 </div>
-                <input name="email" type="email" required autoComplete="email" placeholder="Email" aria-label="Email" className={field} />
-                <select name="sphere" defaultValue="" required aria-label="What can we help with?" className={`${field} invalid:text-faint`}>
+                <input name="email" type="email" required autoComplete="email" placeholder="Email" aria-label="Email" className={box} />
+                <select name="sphere" defaultValue="" required aria-label="What can we help with?" className={`${box} invalid:text-ink/45`}>
                   <option value="" disabled>
                     What can we help with?
                   </option>
@@ -87,19 +94,19 @@ export default function Contact() {
                   <option>Partnering with Evoris</option>
                   <option>Something else</option>
                 </select>
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Tell us a little about it"
-                  aria-label="Message"
-                  className={`${field} resize-none`}
-                />
-                <button type="submit" className={`${pillDark} mt-2 !py-3`}>
-                  Send message <ArrowRight size={16} />
+                <textarea name="message" rows={6} placeholder="Tell us a little about it" aria-label="Message" className={`${box} resize-none`} />
+                <button
+                  type="submit"
+                  className="group mt-2 flex items-stretch justify-between bg-ink text-left text-base font-medium text-bg"
+                >
+                  <span className="px-5 py-4">Send to Evoris</span>
+                  <span className="flex w-14 items-center justify-center bg-maroon transition-colors group-hover:bg-kumkum">
+                    <ArrowUpRight size={20} />
+                  </span>
                 </button>
-              </form>
+              </motion.form>
             )}
-          </Reveal>
+          </AnimatePresence>
         </div>
       </Container>
     </section>

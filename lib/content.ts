@@ -1,5 +1,9 @@
 // All site copy lives here so it can be edited without touching components.
 
+/** Unsplash photo URL (free licence). */
+export const photo = (id: string, w = 1600) =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`;
+
 export const brand = {
   name: "Evoris",
   tagline: "Life, simplified.",
@@ -91,6 +95,8 @@ export type Sphere = {
   id: string;
   title: string;
   blurb: string;
+  image: string;
+  alt: string;
   services: Service[];
 };
 
@@ -98,6 +104,8 @@ export const spheres: Sphere[] = [
   {
     id: "celebrations",
     title: "Moments of Celebrations",
+    image: "1679937698873-6065742c8d32",
+    alt: "A bride and groom during a Tamil wedding ritual, surrounded by family",
     blurb:
       "Life’s happiest milestones deserve to be lived, not managed. From the first candle to the grandest vow, we design and deliver celebrations that feel entirely yours.",
     services: [
@@ -115,6 +123,8 @@ export const spheres: Sphere[] = [
   {
     id: "care",
     title: "Heart of Care",
+    image: "1624434070018-4a74c7d91715",
+    alt: "A grandmother in a saree holding her grandchild in a garden",
     blurb:
       "When the people you love need looking after, we step in with warmth and reliability. Compassionate, professional care that brings peace of mind to the whole family.",
     services: [
@@ -127,6 +137,8 @@ export const spheres: Sphere[] = [
   {
     id: "prosperity",
     title: "Towards Abundance, Prosperity & Wealth",
+    image: "1656236607879-cd489955e17b",
+    alt: "A woman reviewing plans on a tablet by the water",
     blurb:
       "Financial clarity is the foundation of a confident life. We help you plan, grow and protect your wealth with guidance that is honest, informed and personal.",
     services: [
@@ -139,6 +151,8 @@ export const spheres: Sphere[] = [
   {
     id: "crossroads",
     title: "Support @ Life Cross Road",
+    image: "1676569645218-05d93a50d8e8",
+    alt: "A young woman working on a laptop on a bench",
     blurb:
       "Some turns in life call for a steady hand and a clear view ahead. Whether it’s a career change, a legal matter or a big decision, we help you choose the right road.",
     services: [
@@ -152,6 +166,8 @@ export const spheres: Sphere[] = [
   {
     id: "safety",
     title: "Assuring Safety & Protection",
+    image: "1533253386197-6b67a7238177",
+    alt: "A carved wooden door and stone steps of a yellow house",
     blurb:
       "Feeling safe is the quiet comfort every family deserves. We bring together smart technology and dependable people to protect your home and your loved ones.",
     services: [
@@ -163,6 +179,8 @@ export const spheres: Sphere[] = [
   {
     id: "property",
     title: "Securing Asset & Property Management",
+    image: "1560838944-9e0177bbc294",
+    alt: "A woman standing in a green paddy field",
     blurb:
       "Your land and property carry your hard work and your legacy. We look after them with care and transparency — wherever you are in the world.",
     services: [
@@ -173,6 +191,8 @@ export const spheres: Sphere[] = [
   {
     id: "pain",
     title: "Shouldering Moments of Pain",
+    image: "1636619773834-c7e0762ddfe1",
+    alt: "Clay oil lamps glowing in the dark",
     blurb:
       "In life’s most difficult hours, no one should have to carry the weight alone. We stand beside you with dignity, sensitivity and practical support.",
     services: [{ name: "Remembrance" }, { name: "There for You!!!" }],
@@ -180,6 +200,8 @@ export const spheres: Sphere[] = [
   {
     id: "support",
     title: "Towards Shared Support",
+    image: "1780314501266-0158179ba545",
+    alt: "An elderly man and a young boy sitting together, smiling",
     blurb:
       "Sometimes the most powerful help is someone who truly listens. Our counsellors, coaches and mentors help individuals and families find clarity, balance and strength.",
     services: [
@@ -198,6 +220,8 @@ export const spheres: Sphere[] = [
   {
     id: "roots",
     title: "Capture Life Moments, Family Roots & History",
+    image: "1623510848605-3cf32d03059e",
+    alt: "Black and white portrait of an elderly man",
     blurb:
       "Every family has a story worth keeping. We capture your moments, trace your roots and preserve your history so it can be treasured for generations.",
     services: [
@@ -218,6 +242,8 @@ export const spheres: Sphere[] = [
   {
     id: "green",
     title: "Green@Home",
+    image: "1695566371955-5f07b6443657",
+    alt: "A farmer planting rice seedlings in a flooded field",
     blurb:
       "A greener home is a healthier, happier home. We help you grow, nurture and reconnect with nature — from your balcony garden to your family farm.",
     services: [
@@ -231,6 +257,8 @@ export const spheres: Sphere[] = [
   {
     id: "vacation",
     title: "Vacation, Leisure & Happy Moments Management",
+    image: "1593693411515-c20261bcad6e",
+    alt: "A houseboat on the palm-lined backwaters of Kerala",
     blurb:
       "Time away together is where some of life’s best memories are made. We plan every detail so your only job is to relax and enjoy the journey.",
     services: [
@@ -253,4 +281,68 @@ export const membership = {
     { title: "Partner “Right”", body: "Individuals and organisations can join as partners and grow with the Evoris ecosystem." },
     { title: "Member Community", body: "Workshops, awareness sessions and gatherings with fellow members." },
   ],
+};
+
+/** The chapters of a life — used for the pinned "life journey" section. */
+export const chapters = [
+  {
+    title: "Beginnings",
+    body: "Baby showers, naming ceremonies, first birthdays. And care for the mother through pregnancy and after.",
+    services: ["Baby Shower", "Mothers Care", "Birthday"],
+    image: "1780329930345-19a7f25e5fc6",
+    alt: "A baby held gently in a parent's hands on a patterned blanket",
+  },
+  {
+    title: "Growing up",
+    body: "Half-saree functions, school choices and the moments you’ll want filmed, framed and remembered.",
+    services: ["Half-Saree", "Education Choices", "Photo & Video"],
+    image: "1635770618588-06bd8d5d73b9",
+    alt: "A father lifting his laughing child into the air",
+  },
+  {
+    title: "Finding your path",
+    body: "Career planning, a new business, a job that ended too soon. Clear guidance when the road forks.",
+    services: ["Career Planning", "Business Mentoring", "Legal Services"],
+    image: "1676569641968-3858aa82bed5",
+    alt: "A young woman working on her laptop outdoors",
+  },
+  {
+    title: "Two families, one day",
+    body: "Engagements, weddings and every ritual in between, planned so that you can be fully present.",
+    services: ["Engagements", "Wedding", "Destination Celebrations"],
+    image: "1754782500863-2491466d575a",
+    alt: "Newlyweds in traditional attire resting together on the grass",
+  },
+  {
+    title: "A home of your own",
+    body: "Housewarmings, home safety, gardens, and property managed honestly, even from abroad.",
+    services: ["Housewarming", "Home Safety", "Property Management"],
+    image: "1730130596440-e9925840f028",
+    alt: "A young family holding their child at a home ceremony",
+  },
+  {
+    title: "Caring for those who cared for you",
+    body: "Elder care, hospital stays and health monitoring, with someone you trust always on call.",
+    services: ["Elderly Care", "Hospitalization Care", "Health Monitoring"],
+    image: "1560885673-4e2f056f6e2a",
+    alt: "A smiling grandmother in a floral saree",
+  },
+  {
+    title: "Legacy",
+    body: "Family trees, histories, films and remembrance. The story of who you are, kept for those who come next.",
+    services: ["Family Tree", "Familiography", "Remembrance"],
+    image: "1697305593259-d96aa6ed0e14",
+    alt: "Two elderly women sitting together on a doorstep",
+  },
+];
+
+export const images = {
+  hero: { id: "1730130596425-197566414dc4", alt: "A family seated together at a home puja" },
+  henna: { id: "1621801306185-8c0ccf9c8eb8", alt: "Two hands with intricate henna holding each other" },
+  kolam: { id: "1739242895556-b1750c6f25de", alt: "A hand drawing a kolam at a doorstep" },
+  lamps: { id: "1793626084803-854da20b8c46", alt: "A rangoli lit by small clay lamps at night" },
+  family: { id: "1784816515435-ef6f6b1ddf7e", alt: "A father holding his child in a crowd at a festival" },
+  grandmother: { id: "1624434070018-4a74c7d91715", alt: "A grandmother holding her grandchild" },
+  wedding: { id: "1679937698873-6065742c8d32", alt: "A Tamil wedding ritual" },
+  field: { id: "1560838944-9e0177bbc294", alt: "A woman in a paddy field" },
 };

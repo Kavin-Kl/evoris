@@ -1,36 +1,63 @@
 "use client";
 
-import { founder } from "@/lib/content";
-import { Container, Reveal } from "./ui";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { founder, images } from "@/lib/content";
+import { Container, Index, ParallaxPhoto, Reveal } from "./ui";
 
 export default function Founder() {
-  return (
-    <section id="founder" className="py-24 md:py-36">
-      <Container className="max-w-[860px]">
-        <Reveal>
-          <p className="text-center text-sm text-faint">Why Evoris exists</p>
-          <blockquote className="mt-6 text-center font-serif text-[1.85rem] leading-[1.3] tracking-[-0.01em] text-ink md:text-[2.6rem]">
-            “Whatever the moment, you will never have to face it alone. We will treat your life’s moments as if they
-            were our own: with care in the tender ones, joy in the celebrations, and honesty always.”
-          </blockquote>
-          <div className="mt-10 flex items-center justify-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine font-serif text-sm text-white">
-              NJG
-            </span>
-            <div className="text-left">
-              <p className="text-[0.95rem] text-ink">{founder.name}</p>
-              <p className="text-sm text-faint">Founder, Evoris</p>
-            </div>
-          </div>
-        </Reveal>
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const markY = useTransform(scrollYProgress, [0, 1], [120, -120]);
+  const markRotate = useTransform(scrollYProgress, [0, 1], [-12, 8]);
 
-        <Reveal delay={0.05}>
-          <div className="mx-auto mt-16 grid max-w-3xl gap-6 border-t border-line pt-10 text-[1.05rem] leading-relaxed text-muted md:grid-cols-2">
-            {founder.intro.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+  return (
+    <section id="founder" ref={ref} className="relative overflow-hidden bg-peacock py-24 text-bg md:py-36">
+      <Container>
+        <div className="flex items-center justify-between border-b border-bg/20 pb-4">
+          <Index n="05">From the founder</Index>
+          <span className="font-mono text-[0.78rem] uppercase text-bg/60">{founder.name}</span>
+        </div>
+
+        <div className="relative mt-12 grid gap-10 md:mt-16 md:grid-cols-[1.5fr_1fr] md:gap-16">
+          <motion.span
+            aria-hidden
+            style={{ y: markY, rotate: markRotate }}
+            className="display pointer-events-none absolute -left-4 -top-16 select-none text-[16rem] leading-none text-turmeric md:-left-10 md:-top-24 md:text-[24rem]"
+          >
+            “
+          </motion.span>
+
+          <div className="relative">
+            <Reveal>
+              <blockquote className="display text-[clamp(2.2rem,4.6vw,4.4rem)] leading-[0.98] tracking-[-0.03em]">
+                Whatever the moment, you will <span className="bg-turmeric px-2 text-ink">never</span> have to face it alone.
+              </blockquote>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-8 max-w-xl text-lg leading-snug text-bg/75">{founder.promise}</p>
+              <div className="mt-8 flex items-center gap-4">
+                <span className="display flex h-14 w-14 items-center justify-center bg-rose text-lg tracking-[-0.03em] text-bg">
+                  NJG
+                </span>
+                <div>
+                  <p className="font-medium">{founder.name}</p>
+                  <p className="font-mono text-xs uppercase text-bg/60">Founder, Evoris</p>
+                </div>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
+
+          <div>
+            <ParallaxPhoto
+              id={images.henna.id}
+              alt={images.henna.alt}
+              sizes="(min-width: 900px) 35vw, 92vw"
+              className="aspect-[4/5]"
+            />
+            <p className="mt-4 text-[0.95rem] leading-snug text-bg/70">{founder.intro[0]}</p>
+          </div>
+        </div>
       </Container>
     </section>
   );

@@ -1,122 +1,111 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { process } from "@/lib/content";
-import { Container, Heading, Reveal } from "./ui";
+import Image from "next/image";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import { useState, type PointerEvent } from "react";
+import { chapters, photo, process } from "@/lib/content";
+import { Pattern } from "./Texture";
+import { Container, ease, Index, Lines, palette, Rule } from "./ui";
 
-/* One family's journey, told step by step — illustrative. */
-const chat: { from: "you" | "evoris"; text: string }[][] = [
-  [
-    { from: "you", text: "My parents’ 40th anniversary is in March. We want to do something special." },
-    { from: "evoris", text: "Congratulations! I’m Meera, and I’ll be looking after this for you." },
-  ],
-  [
-    { from: "evoris", text: "How many guests, and is there a place that means something to them?" },
-    { from: "you", text: "Around 80 people. They were married in Madurai." },
-  ],
-  [{ from: "evoris", text: "Here’s the plan: three venues in Madurai, a budget of ₹4–5L, and a timeline to 14 March." }],
-  [{ from: "evoris", text: "Caterer, decorator, photographer and travel for out-of-town family, all from our partner network." }],
-  [{ from: "evoris", text: "Everything’s on track. I’ll be at the venue from 3 PM on the day. Just come and enjoy it." }],
-  [
-    { from: "evoris", text: "The photos are ready, and every vendor has been paid and reviewed." },
-    { from: "you", text: "They haven’t stopped talking about it. Thank you." },
-  ],
-  [{ from: "evoris", text: "Your father turns 70 next year. Shall I keep the date in your life calendar?" }],
+/* A photo per step, shown as a cursor-following preview on desktop. */
+const previews = [
+  chapters[3].image,
+  chapters[5].image,
+  chapters[2].image,
+  chapters[4].image,
+  chapters[0].image,
+  chapters[6].image,
+  chapters[1].image,
 ];
 
 export default function Process() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [hover, setHover] = useState<number | null>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const x = useSpring(mx, { stiffness: 180, damping: 22 });
+  const y = useSpring(my, { stiffness: 180, damping: 22 });
 
-  useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setActive((a) => (a + 1) % process.length), 4500);
-    return () => clearInterval(t);
-  }, [paused]);
+  const move = (e: PointerEvent<HTMLOListElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set(e.clientX - r.left);
+    my.set(e.clientY - r.top);
+  };
 
   return (
-    <section id="process" className="py-24 md:py-36">
-      <Container>
-        <Reveal>
-          <Heading kicker="How it works">Say it once. We take it from there.</Heading>
-        </Reveal>
-
-        <Reveal delay={0.05}>
-          <div className="mt-14 grid overflow-hidden rounded-3xl border border-line bg-card p-3 shadow-[0_30px_80px_-40px_rgba(60,40,20,0.25)] md:grid-cols-[0.85fr_1.15fr]">
-            <ol className="relative p-4 md:p-7">
-              <span className="absolute bottom-10 left-[21px] top-10 w-px bg-line md:left-[33px]" />
-              {process.map((s, i) => {
-                const on = i === active;
-                return (
-                  <li key={s.title}>
-                    <button
-                      onClick={() => {
-                        setActive(i);
-                        setPaused(true);
-                      }}
-                      className="relative flex w-full gap-4 py-2.5 text-left"
-                    >
-                      <span
-                        className={`relative z-10 mt-1.5 flex h-[11px] w-[11px] shrink-0 items-center justify-center rounded-full transition-colors ${
-                          on ? "bg-wine ring-4 ring-wine/15" : "bg-line"
-                        }`}
-                      />
-                      <span>
-                        <span className={`block font-medium transition-colors ${on ? "text-ink" : "text-faint"}`}>
-                          {s.title}
-                        </span>
-                        <AnimatePresence initial={false}>
-                          {on && (
-                            <motion.span
-                              className="block overflow-hidden text-sm leading-relaxed text-muted"
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.35 }}
-                            >
-                              <span className="block pt-1">{s.body}</span>
-                            </motion.span>
-                          )}
-                        </AnimatePresence>
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ol>
-
-            <div className="relative flex min-h-[340px] items-center overflow-hidden rounded-2xl bg-[linear-gradient(160deg,#ece4f0_0%,#e9dfe6_45%,#e2d6cf_100%)] p-6 md:min-h-0 md:p-10">
-              <span className="absolute left-5 top-5 rounded-full bg-card/80 px-3 py-1 text-xs text-muted">
-                Step {active + 1} of {process.length}
-              </span>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active}
-                  className="w-full space-y-3 pt-8"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.35 }}
-                >
-                  {chat[active].map((m, k) => (
-                    <div key={k} className={`flex ${m.from === "you" ? "justify-end" : "justify-start"}`}>
-                      <p
-                        className={`max-w-[85%] rounded-2xl px-4 py-3 text-[0.95rem] leading-relaxed shadow-sm ${
-                          m.from === "you"
-                            ? "rounded-br-sm bg-night text-[#f4efe6]"
-                            : "rounded-bl-sm bg-card text-ink"
-                        }`}
-                      >
-                        {m.text}
-                      </p>
-                    </div>
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+    <section id="process" className="relative bg-bg-2 py-24 md:py-36">
+      <Pattern kind="dots" size={18} className="text-ink/[0.12]" />
+      <Container className="relative">
+        <div className="grid gap-8 md:grid-cols-[1fr_1fr] md:items-end">
+          <div>
+            <Index n="03">Process</Index>
+            <Lines
+              className="display mt-6 text-[clamp(3.2rem,7vw,7rem)]"
+              lines={["Tell us once.", <span key="w" className="text-maroon">We handle the rest.</span>]}
+            />
           </div>
-        </Reveal>
+          <p className="max-w-md text-lg leading-snug text-muted md:justify-self-end">
+            Seven steps, one Life Journey Manager accountable for every one of them, from first hello to every next
+            chapter.
+          </p>
+        </div>
+
+        <ol
+          className="relative mt-16 md:mt-24"
+          onPointerMove={move}
+          onPointerLeave={() => setHover(null)}
+        >
+          {process.map((s, i) => (
+            <li
+              key={s.title}
+              onPointerEnter={() => setHover(i)}
+              className="group relative"
+              style={{ "--fg": palette[i % palette.length].fg } as React.CSSProperties}
+            >
+              <Rule className="!opacity-30" />
+              <div className="relative grid grid-cols-[3rem_1fr] gap-x-4 overflow-hidden py-6 md:grid-cols-[6rem_1fr_1.2fr] md:py-8">
+                {/* Hover fill sweeps up from the bottom */}
+                <span
+                  style={{ background: palette[i % palette.length].bg }}
+                  className="absolute inset-0 origin-bottom scale-y-0 transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-y-100" />
+                <span className="relative font-mono text-sm transition-colors duration-500 group-hover:text-[var(--fg)] md:pl-4 md:text-base">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="display relative text-[clamp(2rem,4vw,3.6rem)] transition-colors duration-500 group-hover:text-[var(--fg)]">
+                  {s.title}
+                </h3>
+                <p className="relative col-start-2 mt-2 max-w-md text-base leading-snug text-muted transition-colors duration-500 group-hover:text-[var(--fg)] group-hover:opacity-80 md:col-start-3 md:mt-0 md:self-center md:pr-4">
+                  {s.body}
+                </p>
+              </div>
+            </li>
+          ))}
+          <Rule className="!opacity-30" />
+
+          <AnimatePresence>
+            {hover !== null && (
+              <motion.div
+                className="pointer-events-none absolute left-0 top-0 z-10 hidden h-56 w-44 overflow-hidden md:block"
+                style={{ x, y, translateX: "-50%", translateY: "-50%" }}
+                initial={{ opacity: 0, scale: 0.6, rotate: -6 }}
+                animate={{ opacity: 1, scale: 1, rotate: 3 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.4, ease }}
+              >
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={hover}
+                    className="absolute inset-0"
+                    initial={{ clipPath: "inset(100% 0 0 0)" }}
+                    animate={{ clipPath: "inset(0% 0 0 0)" }}
+                    transition={{ duration: 0.5, ease }}
+                  >
+                    <Image src={photo(previews[hover], 500)} alt="" fill sizes="176px" className="object-cover" />
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </ol>
       </Container>
     </section>
   );
