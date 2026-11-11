@@ -5,26 +5,24 @@ import Founder from "@/components/Founder";
 import Hero from "@/components/Hero";
 import Membership from "@/components/Membership";
 import Nav from "@/components/Nav";
-import Preloader from "@/components/Preloader";
 import Process from "@/components/Process";
-import SmoothScroll from "@/components/SmoothScroll";
-import Spheres from "@/components/Spheres";
+import Services from "@/components/Services";
+import { Motion } from "@/components/ui";
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <Preloader />
+    <Motion>
       <Nav />
       <main>
         <Hero />
-        <Founder />
         <About />
+        <Services />
         <Process />
-        <Spheres />
         <Membership />
+        <Founder />
         <Contact />
       </main>
       <Footer />
-    </SmoothScroll>
+    </Motion>
   );
 }

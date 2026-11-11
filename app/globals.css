@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #fbf6f2;
-  --ivory: #fffdfb;
+  --white: #ffffff;
+  --surface: #faf7f6;
+  --surface-2: #f4eef0;
+  --line: #ebe3e6;
   --blush: #f7c6dc;
-  --blush-soft: #fbe6ef;
   --plum: #98537a;
   --wine: #6e1039;
-  --wine-deep: #3f0820;
-  --gold: #c9b56e;
-  --ink: #2b1621;
-  --muted: #7a6470;
+  --wine-deep: #3a0a1f;
+  --gold: #b9a35a;
+  --ink: #1d1418;
+  --muted: #645860;
 }
 
 @theme inline {
-  --color-cream: var(--cream);
-  --color-ivory: var(--ivory);
+  --color-white: var(--white);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
   --color-blush: var(--blush);
-  --color-blush-soft: var(--blush-soft);
   --color-plum: var(--plum);
   --color-wine: var(--wine);
   --color-wine-deep: var(--wine-deep);
@@ -29,49 +31,31 @@
 }
 
 html {
-  background: var(--cream);
+  background: var(--white);
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
-  background: var(--cream);
+  background: var(--white);
   color: var(--ink);
   font-family: var(--font-outfit), system-ui, sans-serif;
 }
 
 ::selection {
   background: var(--blush);
-  color: var(--wine);
+  color: var(--wine-deep);
 }
 
-/* Lenis */
-html.lenis,
-html.lenis body {
-  height: auto;
+.no-scrollbar {
+  scrollbar-width: none;
 }
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.animate-marquee {
-  animation: marquee 60s linear infinite;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation: none;
+  html {
+    scroll-behavior: auto;
   }
 }
